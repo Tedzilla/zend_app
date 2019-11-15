@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>MARKET SEGMENT</title>
+    <style>
+    table#content-table, td, tr{
+         border: 1px solid black;
+    }
+    </style>
+</head>
+<body>
+    <div class="content-main p-15em pt-0 mt-0" style="min-height: 630px">
+        <?php echo $this->partial('/partials/navbar.phtml', array(
+        'current_table' => $this->market['data_type'],
+        'country' => $this->country)); ?>
+        <table id="content-table" style="width:100%;">
+            <tbody>
+                <tr>
+                    <th>Market segment code</th>
+                    <th>Name</th>
+                    <th>Name English</th>
+                    <th>edit/delete</th>
+                </tr>
+        <?php 
+            foreach ($this->market as $item){
+                echo("<tr>");
+                if(isset($item['market_segment_code'])){
+                    echo("<td>".$item['market_segment_code']."</td>");
+                } 
+                if(isset($item['name'])){
+                    echo("<td>".$item['name']."</td>");
+                }
+                if(isset($item['name_en'])){
+                    echo("<td>".$item['name_en']."</td>");
+                }
+                echo("</tr>");
+            }
+        ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

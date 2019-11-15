@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<link href="<?php echo EMIS_APPLICATION_PROTOCOL ?>://<?php echo STATIC_URL; ?>/emispro/css/company-screener.css" media="screen" rel="stylesheet" type="text/css" >
+<script type="text/javascript" src="<?php echo EMIS_APPLICATION_PROTOCOL ?>://<?php echo STATIC_URL; ?>/emispro/js/jquery.tooltipster.js"></script>
+<link href="<?php echo EMIS_APPLICATION_PROTOCOL ?>://<?php echo STATIC_URL; ?>/emispro/css/tooltipster.css" media="screen" rel="stylesheet" type="text/css" >
+<script>
+    function clearAll(){
+        document.getElementById("addQuote").reset();
+    }
+</script>
+<html>
+    <head>
+    <title>Add Quote</title>
+    <style>
+    #content-table > tbody > tr > td > input{
+        border: 2px solid blue;
+    }
+    </style>
+</head>
+<body>
+    <div class="content-main p-15em pt-0 mt-0" style="min-height: 630px">
+        <form id="addQuote" name="add_quote" action="<?php echo Zend_Registry::get('config')->main->url . 'notoria/new' ?>" method="post">
+        <table id="content-table" style="width:100%;">
+            <tbody>
+                <tr>
+                    <td>Country code:</td>
+                    <td><select>
+                        <option type="text" name="country_code" size="5" value="PL">PL</option>
+<!--                        <option type="text" name="country_code" size="5" value="CZ">CZ</option> -->
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Quote ID:</td>
+                    <td><input type="text" name="quote_id" size="50" value="<?php echo $this->lastQuote; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Market segment code:</td>
+                    <td><select name="marketCode">
+                            <?php 
+                                foreach ($this->marketCode as $$row => $innerArray){
+                                    foreach ($innerArray as $innerRow => $value){
+                                        echo "<option value=". $value . ">" . $value . "</option>";
+                                    }
+                                }
+                            ?>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Stock exchange code:</td>
+                    <td><input type="text" name="stock_exchange_code " size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>security ID:</td>
+                    <td><input type="text" name="security_id" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Instrument type code:</td>
+                    <td><select name="instrumentCode">
+                        <?php 
+                            foreach ($this->instrumentCode as $$row => $innerArray){
+                                foreach ($innerArray as $innerRow => $value){
+                                    echo "<option value=". $value . ">" . $value . "</option>";
+                                }
+                            }
+                        ?>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Instrument subtype code:</td>
+                    <td><select name="instrumentSubtypeCode"><?php foreach ($this->instrumentSubtypeCode as $row => $innerArray){
+                            foreach ($innerArray as $innerRow => $value){
+                                echo "<option value=". $value . ">" . $value . "</option>";
+                            }
+                        } ?>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="name" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Name EN:</td>
+                    <td><input type="text" name="name_en" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Input DT:</td>
+                    <td><input type="text" name="input_DT" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Currency:</td>
+                    <td><input type="text" name="currency_code" size="50" value="PLN"></td>
+                </tr>
+                <tr>
+                    <td>Benchmark index:</td>
+                    <td><input type="text" name="benchmark_index" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Tseries filename:</td>
+                    <td><input type="text" name="tseries_filename" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>DP code:</td>
+                    <td><select name="dpCode"><?php foreach ($this->dpCodes as $row => $innerArray){
+                            foreach ($innerArray as $innerRow => $value){
+                                echo "<option value=". $value . ">" . $value . "</option>";
+                            }
+                        } ?>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dividend frecuency:</td>
+                    <td><input type="text" name="dividend_frecuency" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Fi issue DT:</td>
+                    <td><input type="text" name="fi_issue_DT" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Fi maturity DT:</td>
+                    <td><input type="text" name="fi_maturity_DT" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Fi duration:</td>
+                    <td><input type="text" name="fi_duration" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Fi nominal value issue:</td>
+                    <td><input type="text" name="fi_nominal_value_issue" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Fi coupon payment:</td>
+                    <td><input type="text" name="fi_coupon_payment" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Fi coupon DT</td>
+                    <td><input type="text" name="fi_coupon_DT" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Fi callable DT</td>
+                    <td><input type="text" name="fi_callable_DT" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Last updated</td>
+                    <td><input type="text" name="last_updated" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>Comp code</td>
+                    <td><input type="text" name="comp_code" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>ISIN</td>
+                    <td><input type="text" name="isin" size="50" value=""></td>
+                </tr>
+                <tr>
+                    <td>BIC (GPW Ticker)</td>
+                    <td><input type="text" name="bic" size="50" value=""></td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+        <di>
+            <button id="save">Save</button>
+            <button id="reset" onclick="clearAll();">Reset</button>
+            <button id="cancel" onclick="javascript:history.back();">Cancel</button>
+        </div>
+    </div>
+</body>
+
+</html>

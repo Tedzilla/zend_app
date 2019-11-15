@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Instruments</title>
+    <style>
+    table#content-table, td, tr{
+         border: 1px solid black;
+    }
+    </style>
+</head>
+<body>
+    <div class="content-main p-15em pt-0 mt-0" style="min-height: 630px">
+        <?php echo $this->partial('/partials/navbar.phtml', array(
+        'current_table' => $this->instrument['data_type'],
+        )); ?>
+        <table id="content-table" style="width:100%;">
+            <tbody>
+                <tr>
+                    <th>instrument type code</th>
+                    <th>instrument subtype code </th>
+                    <th>Name Id</th>
+                    <th>edit/delete</th>
+                </tr>
+        <?php 
+            foreach ($this->instrument as $item){
+                echo("<tr>");
+                if(isset($item['Instrument'])){
+                    echo("<td>".$item['Instrument']."</td>");
+                } 
+                if(isset($item['instrument_type_code'])){
+                    echo("<td>".$item['instrument_type_code']."</td>");
+                }
+                if(isset($item['instrument_subtype_code'])){
+                    echo("<td>".$item['instrument_subtype_code']."</td>");
+                }
+                if(isset($item['name_id'])){
+                    echo("<td>".$item['name_id']."</td>");
+                }
+                echo("</tr>");
+            }
+        ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Quote</title>
+    <style>
+        table#content-table, td, tr{
+             border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="filter-by" style="width: 100%">
+            <span style="margin-right: 3em; float: left;">FILTER BY:</span>
+            <form name="instruments_type_search" action="<?php echo Zend_Registry::get('config')->main->url; ?>notoria/index" method="get" style="float: left; margin-right: 3em;">
+                <label>Instrument type code</label>
+                <select id="instruments_type_search" name ="instruments_type_search" onchange="form.submit()">
+                    <?php 
+
+                        if (isset($this->active_instrument_type)){
+                            echo "<option value=".$this->active_instrument_type .">".$this->active_instrument_type ."</option>";
+                        } else {
+                            echo "<option>ALL</option>";
+                        }
+                        foreach ($this->instruments as $row => $innerArray){
+                            foreach ($innerArray as $innerRow => $value){
+                                echo "<option value=". $value . ">" . $value . "</option>";
+                            }
+                        }
+                    ?>
+                </select>
+            </form>
+            
+            <form name="instruments_subtype_search" action="<?php echo Zend_Registry::get('config')->main->url; ?>notoria/index" method="get" style="float: left; margin-right: 3em;">
+                <label>Instrument subtype code</label>
+                <select id="instruments_subtype_search" name="instruments_subtype_search" onchange="form.submit()">
+                    <?php 
+                        if (isset($this->active_instrument_subtype)){
+                            echo "<option value=".$this->active_instrument_subtype .">".$this->active_instrument_subtype ."</option>";
+                        } else {
+                            echo "<option>ALL</option>";
+                        }
+                        foreach ($this->instrument_subtype as $row => $innerArray){
+                            foreach ($innerArray as $innerRow => $value){
+                                echo "<option value=". $value . ">" . $value . "</option>";
+                            }
+                        }
+                    ?>
+                </select>
+            </form>
+        </div>
+    
+    <div class="content-main p-15em pt-0 mt-0" style="min-height: 630px">
+        <?php echo $this->partial('/partials/navbar.phtml', array(
+        'current_table' => $this->quote['data_type'],
+        'country' => $this->country
+        )); ?>
+
+        <table id="content-table" style="width:100%;">
+            <tbody>
+                <tr>
+                    <th>Quote Id</th>
+                    <form name="sort_by_security_id" method="get" action="<?php echo Zend_Registry::get('config')->main->url; ?>notoria/index">
+                        <th><button id="security_id_button" type="submit" value="security_id<?php echo "&" . $this->active_instrument_type . "&" . $this->active_instrument_subtype; ?>" name="sort_by">Security Id</button></th>
+                    </form>
+                    <form name="sort_by_security_id" method="get" action="<?php echo Zend_Registry::get('config')->main->url; ?>notoria/index">
+                        <th><button id="name_button" type="submit" value="name<?php echo "&" . $this->active_instrument_type . "&" . $this->active_instrument_subtype; ?>" name="sort_by">Name</button></th>
+                    </form>
+                    <th>Market segment code</th>
+                </tr>
+        <?php 
+            if(isset($this->instrument_type_filtered) && $this->instrument_type_filtered != "ALL"){
+                $this->quote = $this->instrument_type_filtered;
+            }
+            if(isset($this->instrument_subtype_filtered) && $this->instrument_subtype_filtered != "ALL"){
+                $this->quote = $this->instrument_subtype_filtered;
+            }
+            foreach ($this->quote as $item){
+                echo("<tr>");
+                if(isset($item['quote_id'])){
+                    echo("<td>".$item['quote_id']."</td>");
+                } 
+                if(isset($item['security_id'])){
+                    echo("<td>".$item['security_id']."</td>");
+                }
+                if(isset($item['name_en'])){
+                    echo("<td>".$item['name_en']."</td>");
+                }
+                if(isset($item['market_segment_code'])){
+                    echo("<td>".$item['market_segment_code']."</td>");
+                }
+                if (!empty($item['quote_id'])){
+                    echo("<form name='edit_entry' method='post' action=". Zend_Registry::get('config')->main->url . "notoria/index>"
+                        . "<td><button type='submit' value='". json_encode($item) ."' name='edit'>EDIT</button></td></form>");
+                }
+                echo("</tr>");
+            }
+        ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
